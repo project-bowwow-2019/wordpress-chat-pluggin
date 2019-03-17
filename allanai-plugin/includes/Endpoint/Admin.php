@@ -75,8 +75,8 @@ class Admin {
         register_rest_route( $namespace, $endpoint, array(
             array(
                 'methods'               => \WP_REST_Server::READABLE,
-                'callback'              => array( $this, 'get_example' ),
-                'permission_callback'   => array( $this, 'example_permissions_check' ),
+                'callback'              => array( $this, 'get_email' ),
+                'permission_callback'   => array( $this, 'admin_permissions_check' ),
                 'args'                  => array(),
             ),
         ) );
@@ -84,26 +84,42 @@ class Admin {
         register_rest_route( $namespace, $endpoint, array(
             array(
                 'methods'               => \WP_REST_Server::CREATABLE,
-                'callback'              => array( $this, 'update_example' ),
-                'permission_callback'   => array( $this, 'example_permissions_check' ),
-                'args'                  => array(),
+                'callback'              => array( $this, 'update_email' ),
+                'permission_callback'   => array( $this, 'admin_permissions_check' ),
+                'args'                  => array( // the expected parameters for this route
+									'email'=> array(
+										'requred' => true,
+										'type' => 'string',
+										'description' => 'The user\'s email address',
+										'format' => 'email',
+										'validate_callback' = function($param, $request, $key){return | empty($param);} //prevent submission of empty field
+									)
+								),
             ),
         ) );
 
         register_rest_route( $namespace, $endpoint, array(
             array(
                 'methods'               => \WP_REST_Server::EDITABLE,
-                'callback'              => array( $this, 'update_example' ),
-                'permission_callback'   => array( $this, 'example_permissions_check' ),
-                'args'                  => array(),
+                'callback'              => array( $this, 'update_email' ),
+                'permission_callback'   => array( $this, 'admin_permissions_check' ),
+                'args'                  => array( // the expected parameters for this route
+									'email'=> array(
+										'requred' => true,
+										'type' => 'string',
+										'description' => 'The user\'s email address',
+										'format' => 'email',
+										'validate_callback' = function($param, $request, $key){return | empty($param);} //prevent submission of empty field
+									)
+								),
             ),
         ) );
 
         register_rest_route( $namespace, $endpoint, array(
             array(
                 'methods'               => \WP_REST_Server::DELETABLE,
-                'callback'              => array( $this, 'delete_example' ),
-                'permission_callback'   => array( $this, 'example_permissions_check' ),
+                'callback'              => array( $this, 'delete_email' ),
+                'permission_callback'   => array( $this, 'admin_permissions_check' ),
                 'args'                  => array(),
             ),
         ) );
@@ -116,7 +132,7 @@ class Admin {
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Request
      */
-    public function get_example( $request ) {
+    public function get_email( $request ) {
         $example_option = get_option( 'allanai_plugin_email' );
 
         // Don't return false if there is no option
@@ -139,12 +155,12 @@ class Admin {
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Request
      */
-    public function update_example( $request ) {
-        $updated = update_option( 'allanai_plugin_email', $request->get_param( 'exampleSetting' ) );
+    public function update_email( $request ) {
+        $updated = update_option( 'allanai_plugin_email', $request->get_param( 'email' ) );
 
         return new \WP_REST_Response( array(
             'success'   => $updated,
-            'value'     => $request->get_param( 'exampleSetting' )
+            'value'     => $request->get_param( 'email' )
         ), 200 );
     }
 
@@ -154,7 +170,7 @@ class Admin {
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Request
      */
-    public function delete_example( $request ) {
+    public function delete_email( $request ) {
         $deleted = delete_option( 'allanai_plugin_email' );
 
         return new \WP_REST_Response( array(
@@ -169,7 +185,7 @@ class Admin {
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_Error|bool
      */
-    public function example_permissions_check( $request ) {
+    public function admin_permissions_check( $request ) {
         return current_user_can( 'manage_options' );
     }
 }

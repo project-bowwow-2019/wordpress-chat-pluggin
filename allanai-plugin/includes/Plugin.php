@@ -26,7 +26,7 @@ class Plugin {
 	 *
 	 * @var      string
 	 */
-	protected $plugin_slug = 'wp-reactivate';
+	protected $plugin_slug = 'allanai-plugin';
 
 	/**
 	 * Instance of this class.
@@ -75,6 +75,7 @@ class Plugin {
 	 */
 	public static function activate() {
 		add_option( 'allanai_plugin_email' );
+		flush_write_rules();
 	}
 
 	/**
