@@ -75,7 +75,6 @@ class Plugin {
 	 */
 	public static function activate() {
 		add_option( 'allanai_plugin_email' );
-		flush_write_rules();
 	}
 
 	/**

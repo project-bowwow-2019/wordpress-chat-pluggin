@@ -92,7 +92,6 @@ class Admin {
 										'type' => 'string',
 										'description' => 'The user\'s email address',
 										'format' => 'email',
-										'validate_callback' = function($param, $request, $key){return | empty($param);} //prevent submission of empty field
 									)
 								),
             ),
@@ -109,7 +108,6 @@ class Admin {
 										'type' => 'string',
 										'description' => 'The user\'s email address',
 										'format' => 'email',
-										'validate_callback' = function($param, $request, $key){return | empty($param);} //prevent submission of empty field
 									)
 								),
             ),

@@ -8,8 +8,8 @@ export default class Admin extends Component {
     super(props);
 
     this.state = {
-      exampleSetting: '',
-      savedExampleSetting: ''
+      email: '',
+      savedEmail: ''
     };
 
     this.fetchWP = new fetchWP({
@@ -21,18 +21,19 @@ export default class Admin extends Component {
   }
 
   getSetting = () => {
-    this.fetchWP.get( 'example' )
+    this.fetchWP.get( 'admin' )
     .then(
       (json) => this.setState({
-        exampleSetting: json.value,
-        savedExampleSetting: json.value
+        email: json.value,
+        savedEmail: json.value
       }),
       (err) => console.log( 'error', err )
     );
   };
 
   updateSetting = () => {
-    this.fetchWP.post( 'example', { exampleSetting: this.state.exampleSetting } )
+    console.log(this.state.email)
+    this.fetchWP.post( 'admin', { email: this.state.email} )
     .then(
       (json) => this.processOkResponse(json, 'saved'),
       (err) => console.log('error', err)
@@ -40,7 +41,7 @@ export default class Admin extends Component {
   }
 
   deleteSetting = () => {
-    this.fetchWP.delete( 'example' )
+    this.fetchWP.delete( 'admin' )
     .then(
       (json) => this.processOkResponse(json, 'deleted'),
       (err) => console.log('error', err)
@@ -50,8 +51,8 @@ export default class Admin extends Component {
   processOkResponse = (json, action) => {
     if (json.success) {
       this.setState({
-        exampleSetting: json.value,
-        savedExampleSetting: json.value,
+        email: json.value,
+        savedEmail: json.value,
       });
     } else {
       console.log(`Setting was not ${action}.`, json);
@@ -60,13 +61,13 @@ export default class Admin extends Component {
 
   updateInput = (event) => {
     this.setState({
-      exampleSetting: event.target.value,
+      email: event.target.value,
     });
   }
 
   handleSave = (event) => {
     event.preventDefault();
-    if ( this.state.exampleSetting === this.state.savedExampleSetting ) {
+    if ( this.state.email === this.state.savedEmail ) {
       console.log('Setting unchanged');
     } else {
       this.updateSetting();
@@ -82,13 +83,13 @@ export default class Admin extends Component {
     return (
       <div className="wrap">
         <form>
-          <h1>WP Reactivate Settings</h1>
-          
+          <h1>Allan AI Settings</h1>
+
           <label>
-          Example Setting:
+          Contact Email:
             <input
               type="text"
-              value={this.state.exampleSetting}
+              value={this.state.email}
               onChange={this.updateInput}
             />
           </label>

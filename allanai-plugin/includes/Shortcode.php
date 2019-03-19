@@ -10,7 +10,7 @@
  * @copyright 2019 Allan AI
  */
 
-namespace Pangolin\WPR;
+namespace AllanAI\WPR;
 
 /**
  * @subpackage Shortcode

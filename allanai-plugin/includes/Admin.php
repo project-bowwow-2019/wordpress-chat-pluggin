@@ -147,8 +147,8 @@ class Admin {
 		 * Add a settings page for this plugin to the Settings menu.
 		 */
 		$this->plugin_screen_hook_suffix = add_options_page(
-			__( 'Allan AI Settings', $this->plugin_slug ),
-			__( 'Allan AI Settings', $this->plugin_slug ),
+			__( 'Allan AI Settings 123', $this->plugin_slug ),
+			__( 'Allan AI Settings 123', $this->plugin_slug ),
 			'manage_options',
 			$this->plugin_slug,
 			array( $this, 'display_plugin_admin_page' )
