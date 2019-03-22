@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import fetchWP from '../utils/fetchWP';
+import Notice from '../components/notice.jsx'
 
 export default class Admin extends Component {
   constructor(props) {
@@ -9,7 +10,9 @@ export default class Admin extends Component {
 
     this.state = {
       email: '',
-      savedEmail: ''
+      savedEmail: '',
+      notice:false,
+      what:'',
     };
 
     this.fetchWP = new fetchWP({
@@ -36,7 +39,15 @@ export default class Admin extends Component {
     this.fetchWP.post( 'admin', { email: this.state.email} )
     .then(
       (json) => this.processOkResponse(json, 'saved'),
-      (err) => console.log('error', err)
+      (err) => {
+        console.log('error', err);
+        this.setState({
+          notice:{
+            type:'error',
+            message: err.message,
+          }
+        })
+      }
     );
   }
 
@@ -53,6 +64,10 @@ export default class Admin extends Component {
       this.setState({
         email: json.value,
         savedEmail: json.value,
+        notice:{
+          type: 'success',
+          message:`Setting ${action} successfully`
+        }
       });
     } else {
       console.log(`Setting was not ${action}.`, json);
@@ -69,6 +84,12 @@ export default class Admin extends Component {
     event.preventDefault();
     if ( this.state.email === this.state.savedEmail ) {
       console.log('Setting unchanged');
+      this.setState({
+        notice: {
+          type: 'warning',
+          message: 'Setting unchanged.',
+        }
+      })
     } else {
       this.updateSetting();
     }
@@ -79,9 +100,23 @@ export default class Admin extends Component {
     this.deleteSetting();
   }
 
+  clearNotice = () => {
+    this.setState({
+      notice: false,
+    });
+  }
+
   render() {
+    let notice;
+
+    if (this.state.notice) {
+      notice = <Notice notice={this.state.notice} onDismissClick={this.clearNotice} />
+    }
+
     return (
       <div className="wrap">
+        {notice}
+        <Notice notice={this.state.notice} onDismissClick={this.clearNotice} />
         <form>
           <h1>Allan AI Settings</h1>
 
