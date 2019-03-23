@@ -19,7 +19,7 @@ export default class Notice extends React.Component {
 
     if (this.props.showDismiss) { // if our showDismiss prop is set to true
       dismiss = ( // then set the dismiss variable to contain our dismiss button markup
-        <span tabIndex="0" className="notice_dismiss" onClick={ this.props.onDismissClick}> /* when this element is clicked, fire the onDismissClick function that we've passed down as a prop from Admin.jsx */ } >
+        <span tabIndex="0" className="notice_dismiss" onClick={ this.props.onDismissClick}> /* when this element is clicked, fire the onDismissClick function that we've passed down as a prop from Admin.jsx */
           <span className="dashicons dashicons-dismiss"></span>
           <span className="screen-reader-text">Dismiss</span>
         </span>

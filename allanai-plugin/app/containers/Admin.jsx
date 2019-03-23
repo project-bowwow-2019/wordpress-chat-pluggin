@@ -116,7 +116,6 @@ export default class Admin extends Component {
     return (
       <div className="wrap">
         {notice}
-        <Notice notice={this.state.notice} onDismissClick={this.clearNotice} />
         <form>
           <h1>Allan AI Settings</h1>
 
