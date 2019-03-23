@@ -31,7 +31,7 @@ class Widget extends \WP_Widget {
 			'description' => esc_html__( 'WP Reactivate demo widget.', $this->plugin_slug ),
 		);
 
-		parent::__construct( 'wpr-widget', esc_html__( 'WP Reactivate', $this->plugin_slug ), $widget_ops );
+		parent::__construct( 'wpr-widget', esc_html__( 'Allan AI', $this->plugin_slug ), $widget_ops );
 	}
 
 	/**
