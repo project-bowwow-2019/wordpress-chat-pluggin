@@ -43,7 +43,7 @@ class Plugin {
 	 * @since     1.0.0
 	 */
 	private function __construct() {
-		$this->plugin_version = WP_REACTIVATE_VERSION;
+		$this->plugin_version = ALLANAI_PLUGIN_VERSION;
 	}
 
 	/**

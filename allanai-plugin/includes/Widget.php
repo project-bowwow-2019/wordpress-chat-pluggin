@@ -28,7 +28,7 @@ class Widget extends \WP_Widget {
 		$this->version = $plugin->get_plugin_version();
 
 		$widget_ops = array(
-			'description' => esc_html__( 'WP Reactivate demo widget.', $this->plugin_slug ),
+			'description' => esc_html__( 'Alln AI demo widget.', $this->plugin_slug ),
 		);
 
 		parent::__construct( 'wpr-widget', esc_html__( 'Allan AI', $this->plugin_slug ), $widget_ops );

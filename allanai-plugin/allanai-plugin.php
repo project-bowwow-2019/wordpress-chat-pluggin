@@ -80,6 +80,7 @@ function init() {
 	$wpr_shortcode = Shortcode::get_instance();
 	$wpr_admin = Admin::get_instance();
 	$wpr_rest_admin = Endpoint\Admin::get_instance();
+	$wpr_rest_submission = Endpoint\Submission::get_instance();
 }
 add_action( 'plugins_loaded', 'AllanAI\\WPR\\init' );
 
