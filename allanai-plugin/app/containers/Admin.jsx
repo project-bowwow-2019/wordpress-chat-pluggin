@@ -12,7 +12,8 @@ export default class Admin extends Component {
       email: '',
       savedEmail: '',
       notice:false,
-      what:'',
+      agentID:'',
+      savedAgentID:'',
     };
 
     this.fetchWP = new fetchWP({
@@ -27,8 +28,10 @@ export default class Admin extends Component {
     this.fetchWP.get( 'admin' )
     .then(
       (json) => this.setState({
-        email: json.value,
-        savedEmail: json.value
+        email: json.value.email,
+        savedEmail: json.value.email,
+        agentID: json.value.agentID,
+        savedAgentID: json.value.agentID
       }),
       (err) => console.log( 'error', err )
     );
@@ -36,7 +39,7 @@ export default class Admin extends Component {
 
   updateSetting = () => {
     console.log(this.state.email)
-    this.fetchWP.post( 'admin', { email: this.state.email} )
+    this.fetchWP.post( 'admin', { email: this.state.email, agnetID:this.state.agentID} )
     .then(
       (json) => this.processOkResponse(json, 'saved'),
       (err) => {
@@ -75,8 +78,11 @@ export default class Admin extends Component {
   }
 
   updateInput = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
     this.setState({
-      email: event.target.value,
+      [name]: value,
     });
   }
 
@@ -123,8 +129,19 @@ export default class Admin extends Component {
           Contact Email:
             <input
               type="text"
+              name='email'
               value={this.state.email}
               onChange={this.updateInput}
+            />
+          </label>
+
+          <label>
+          Chatbot Agent ID:
+            <input
+              type="text"
+              name='agentID'
+              value={this.state.agentID}
+              onChnage={this.updateInput}
             />
           </label>
 

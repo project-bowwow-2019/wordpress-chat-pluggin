@@ -75,7 +75,7 @@ class Admin {
         register_rest_route( $namespace, $endpoint, array(
             array(
                 'methods'               => \WP_REST_Server::READABLE,
-                'callback'              => array( $this, 'get_email' ),
+                'callback'              => array( $this, 'get_admin_values' ),
                 'permission_callback'   => array( $this, 'admin_permissions_check' ),
                 'args'                  => array(),
             ),
@@ -130,20 +130,22 @@ class Admin {
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Request
      */
-    public function get_email( $request ) {
-        $example_option = get_option( 'allanai_plugin_email' );
+    public function get_admin_values( $request ) {
+        $email = get_option( 'allanai_plugin_email' );
+				$agentID = get_option('allanai_pluging_agentID');
 
         // Don't return false if there is no option
-        if ( ! $example_option ) {
-            return new \WP_REST_Response( array(
-                'success' => true,
-                'value' => ''
-            ), 200 );
+        if ( !$email ) {
+          $email ='';
+        }
+				if (!$agentID) {
+        	$agentID='';
         }
 
         return new \WP_REST_Response( array(
-            'success' => true,
-            'value' => $example_option
+	        'success' => true,
+	        'email' => $email,
+					'agentID' => $agentID,
         ), 200 );
     }
 
