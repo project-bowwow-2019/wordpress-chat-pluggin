@@ -55,7 +55,7 @@ class Shortcode {
 		$this->plugin_slug = $plugin->get_plugin_slug();
 		$this->version = $plugin->get_plugin_version();
 
-		add_shortcode( 'allanai_plugin_email', array( $this, 'shortcode' ) );
+		add_shortcode( 'allanai_plugin', array( $this, 'shortcode' ) );
 	}
 
 

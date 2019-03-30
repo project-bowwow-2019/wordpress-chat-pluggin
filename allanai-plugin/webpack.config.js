@@ -16,11 +16,11 @@ module.exports = (env, argv) => {
     },
 
     devtool: production ? '' : 'source-map',
-  
+
     resolve: {
       extensions: [".js", ".jsx", ".json"],
     },
-  
+
     module: {
       rules: [
         {
@@ -28,6 +28,10 @@ module.exports = (env, argv) => {
           exclude: /node_modules/,
           loader: 'babel-loader',
         },
+        {
+          test: /\.css?$/,
+          use:[{loader:'style-loader'},{loader:'css-loader'}],
+        }
       ],
     },
   };

@@ -39,7 +39,7 @@ export default class Admin extends Component {
 
   updateSetting = () => {
     console.log(this.state.email)
-    this.fetchWP.post( 'admin', { email: this.state.email, agnetID:this.state.agentID} )
+    this.fetchWP.post( 'admin', { email: this.state.email, agentID:this.state.agentID} )
     .then(
       (json) => this.processOkResponse(json, 'saved'),
       (err) => {
@@ -65,8 +65,10 @@ export default class Admin extends Component {
   processOkResponse = (json, action) => {
     if (json.success) {
       this.setState({
-        email: json.value,
-        savedEmail: json.value,
+        email: json.value.email,
+        savedEmail: json.value.email,
+        agentID: json.value.agentID,
+        savedAgentID: json.value.agentID,
         notice:{
           type: 'success',
           message:`Setting ${action} successfully`
@@ -141,7 +143,7 @@ export default class Admin extends Component {
               type="text"
               name='agentID'
               value={this.state.agentID}
-              onChnage={this.updateInput}
+              onChange={this.updateInput}
             />
           </label>
 

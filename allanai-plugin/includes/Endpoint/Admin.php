@@ -84,7 +84,7 @@ class Admin {
         register_rest_route( $namespace, $endpoint, array(
             array(
                 'methods'               => \WP_REST_Server::CREATABLE,
-                'callback'              => array( $this, 'update_email' ),
+                'callback'              => array( $this, 'update_admin_values' ),
                 'permission_callback'   => array( $this, 'admin_permissions_check' ),
                 'args'                  => array( // the expected parameters for this route
 									'email'=> array(
@@ -100,7 +100,7 @@ class Admin {
         register_rest_route( $namespace, $endpoint, array(
             array(
                 'methods'               => \WP_REST_Server::EDITABLE,
-                'callback'              => array( $this, 'update_email' ),
+                'callback'              => array( $this, 'update_admin_values' ),
                 'permission_callback'   => array( $this, 'admin_permissions_check' ),
                 'args'                  => array( // the expected parameters for this route
 									'email'=> array(
@@ -155,12 +155,19 @@ class Admin {
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Request
      */
-    public function update_email( $request ) {
-        $updated = update_option( 'allanai_plugin_email', $request->get_param( 'email' ) );
+    public function update_admin_values( $request ) {
+				$agentID_update = update_option('allanai_plugin_agentID', $request->get_param('agentID'));
+        $email_update = update_option( 'allanai_plugin_email', $request->get_param( 'email' ));
+
+				if($agentID_update && $email_update){
+					$updated = True;
+				} else {
+					$updated = False;
+				};
 
         return new \WP_REST_Response( array(
             'success'   => $updated,
-            'value'     => $request->get_param( 'email' )
+            'value'     => array('email'=> $request->get_param( 'email' ), 'agentID'=> $request->get_param('agentID'))
         ), 200 );
     }
 
@@ -171,11 +178,18 @@ class Admin {
      * @return WP_Error|WP_REST_Request
      */
     public function delete_email( $request ) {
-        $deleted = delete_option( 'allanai_plugin_email' );
+        $email_deleted = delete_option( 'allanai_plugin_email' );
+				$agentID_deleted = delete_option('allanai_plugin_agentID');
+
+				if($agentID_deleted && $email_deleted){
+					$deleted = True;
+				} else {
+					$deleted = False;
+				};
 
         return new \WP_REST_Response( array(
             'success'   => $deleted,
-            'value'     => ''
+            'value'     => array('email'=> '', 'agentID'=> '')
         ), 200 );
     }
 

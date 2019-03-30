@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ContactForm from '../components/contactForm'
+import Chatbot from '../components/chatbot'
 
 export default class Widget extends Component {
   render() {
@@ -9,6 +10,7 @@ export default class Widget extends Component {
         <section className='widget'>
           <h1 className = 'widget-title'> {this.props.wpObject.title}</h1>
           <ContactForm wpObject={this.props.wpObject} />
+        
         </section>
       </div>
     );
