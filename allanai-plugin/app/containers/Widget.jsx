@@ -10,7 +10,7 @@ export default class Widget extends Component {
         <section className='widget'>
           <h1 className = 'widget-title'> {this.props.wpObject.title}</h1>
           <ContactForm wpObject={this.props.wpObject} />
-        
+          <Chatbot wpObject ={this.props.wpObject}/>
         </section>
       </div>
     );

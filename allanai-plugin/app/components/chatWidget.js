@@ -7,7 +7,7 @@ class ChatWidget extends React.Component {
     super(props);
     this.state = {
       mounted:false,
-      responseMessage: "Hello!",
+      responseMessage: "Hello! How may I help?",
     }
   }
 
@@ -16,10 +16,12 @@ class ChatWidget extends React.Component {
     addResponseMessage(this.state.responseMessage)
   }
 
-  handleNewUserMessage = (newMessage) => {
+  handleNewUserMessage = async (newMessage) => {
     console.log(`New message incoming! ${newMessage}`);
     // Now send the message throught the backend API
-    addResponseMessage('Got the message');
+    await this.props.getChatbotResponse(newMessage)
+    await this.setState({responseMessage:this.props.chatbotMessage})
+    addResponseMessage(this.state.responseMessage);
   }
 
   render(){

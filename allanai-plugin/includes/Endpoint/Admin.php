@@ -92,6 +92,11 @@ class Admin {
 										'type' => 'string',
 										'description' => 'The user\'s email address',
 										'format' => 'email',
+									),
+									'agentID'=> array(
+										'required' => false,
+										'type' => 'string',
+										'description' => 'The user\'s chatbot agent ID'
 									)
 								),
             ),
@@ -108,6 +113,11 @@ class Admin {
 										'type' => 'string',
 										'description' => 'The user\'s email address',
 										'format' => 'email',
+									),
+									'agentID'=> array(
+										'required' => false,
+										'type' => 'string',
+										'description' => 'The user\'s chatbot agent ID'
 									)
 								),
             ),
@@ -132,7 +142,7 @@ class Admin {
      */
     public function get_admin_values( $request ) {
         $email = get_option( 'allanai_plugin_email' );
-				$agentID = get_option('allanai_pluging_agentID');
+				$agentID = get_option('allanai_plugin_agentID');
 
         // Don't return false if there is no option
         if ( !$email ) {
@@ -144,8 +154,7 @@ class Admin {
 
         return new \WP_REST_Response( array(
 	        'success' => true,
-	        'email' => $email,
-					'agentID' => $agentID,
+					'value' => array('email'=>$email, 'agentID'=>$agentID)
         ), 200 );
     }
 
@@ -159,7 +168,7 @@ class Admin {
 				$agentID_update = update_option('allanai_plugin_agentID', $request->get_param('agentID'));
         $email_update = update_option( 'allanai_plugin_email', $request->get_param( 'email' ));
 
-				if($agentID_update && $email_update){
+				if($agentID_update || $email_update){
 					$updated = True;
 				} else {
 					$updated = False;

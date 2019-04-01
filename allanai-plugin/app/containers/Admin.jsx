@@ -20,7 +20,9 @@ export default class Admin extends Component {
       restURL: this.props.wpObject.api_url,
       restNonce: this.props.wpObject.api_nonce,
     });
+  }
 
+  componentDidMount(){
     this.getSetting();
   }
 
@@ -90,7 +92,7 @@ export default class Admin extends Component {
 
   handleSave = (event) => {
     event.preventDefault();
-    if ( this.state.email === this.state.savedEmail ) {
+    if ( this.state.email === this.state.savedEmail && this.state.agentID === this.state.savedAgentID) {
       console.log('Setting unchanged');
       this.setState({
         notice: {
