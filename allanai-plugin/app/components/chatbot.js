@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import fetchWP from '../utils/fetchWP';
 import uuidv4 from 'uuid/v4';
 
-const proxyurl = "https://cors-anywhere.herokuapp.com/";
+const baseURL = 'https://allanai-chatbot-backend.appspot.com';
+//https://allanai-chatbot-backend.appspot.com
+//http://localhost:5000
 
 class Chatbot extends React.Component {
   constructor(props){
@@ -70,7 +72,7 @@ class Chatbot extends React.Component {
   };
 
   async checkApi () {
-    const response = await fetch('http://localhost:5000/livecheck');
+    const response = await fetch(baseURL+'/livecheck');
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
     return body;
@@ -87,7 +89,7 @@ class Chatbot extends React.Component {
         hanldedContext:this.state.handledContext,
         userInfo:this.state.userInfo,
       }
-      fetch('http://localhost:5000/chatbotTest/api', {
+      fetch(baseURL+'/chatbotTest/api', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
