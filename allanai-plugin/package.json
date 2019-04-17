@@ -9,8 +9,7 @@
     "prod": "webpack --progress --colors -p --config webpack.config.js --mode=production"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gopangolin/wp-reactivate.git"
+    "type": "git"
   },
   "keywords": [
     "wordpress",

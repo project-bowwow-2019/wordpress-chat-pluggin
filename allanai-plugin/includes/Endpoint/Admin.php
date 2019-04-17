@@ -76,7 +76,6 @@ class Admin {
             array(
                 'methods'               => \WP_REST_Server::READABLE,
                 'callback'              => array( $this, 'get_admin_values' ),
-                'permission_callback'   => array( $this, 'admin_permissions_check' ),
                 'args'                  => array(),
             ),
         ) );
