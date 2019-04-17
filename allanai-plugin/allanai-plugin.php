@@ -81,6 +81,7 @@ function init() {
 	$wpr_admin = Admin::get_instance();
 	$wpr_rest_admin = Endpoint\Admin::get_instance();
 	$wpr_rest_submission = Endpoint\Submission::get_instance();
+	$wpr_rest_chatbot = Endpoint\Chatbot::get_instance();
 }
 add_action( 'plugins_loaded', 'AllanAI\\WPR\\init' );
 
